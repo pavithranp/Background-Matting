@@ -21,7 +21,15 @@ from loss_functions import alpha_loss, compose_loss, alpha_gradient_loss, GANlos
 #CUDA
 
 #os.environ["CUDA_VISIBLE_DEVICES"]="4"
-print('CUDA Device: ' + os.environ["CUDA_VISIBLE_DEVICES"])
+#print('CUDA Device: ' + os.environ["CUDA_VISIBLE_DEVICES"])
+train_on_gpu = torch.cuda.is_available()
+
+if not train_on_gpu:
+    print('CUDA is not available.  Training on CPU ...')
+
+else:
+    print('CUDA is available!  Training on GPU ...')
+
 
 
 """Parses arguments."""
@@ -112,6 +120,8 @@ for epoch in range(0,args.epoch):
 
 
 	for i,data in enumerate(train_loader):
+		torch.cuda.empty_cache()
+		print("freeing")
 		#Initiating
 
 		bg, image, seg, multi_fr, seg_gt, back_rnd =  data['bg'], data['image'], data['seg'], data['multi_fr'], data['seg-gt'], data['back-rnd']
