@@ -210,6 +210,13 @@ ffmpeg -r 60 -f image2 -i output/%04d_compose.png -vcodec libx264 -crf 15 -s 128
 ```
 
 Repeat same for `sample_video_fixed`
+# for quicker conversion to video without intermediate photos
+python video_matting.py -i <path to video> -b <path to sample background>
+
+Optional:
+- use -tb parameter to change the background
+- use -m to change the matting model
+- use -s to change the segmentation model
 
 ## Notes on capturing images
 
